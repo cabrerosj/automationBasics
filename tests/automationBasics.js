@@ -185,5 +185,23 @@ module.exports = {
             //BUG results shows Sum: 0 when empty field is submited
             .click('@sumBtn')
             .expect.element('@sumRslt').text.equal('Sum: ')
+    },
+
+    //Verifies that only input field needs to be filled in Sum
+    'Single Input Sum Test': broswer => {
+        autoBasics
+            .setValue('@sumInput1', '5')
+            .click('@sumBtn')
+            .pause(5000)
+            .expect.element('@sumRslt').text.equal('Sum: 5')
+        //BUG Automation test shows that first sum result gets added to the 2nd input
+        //Manual test shows when 1st input is cleared and 2nd input is set, Results: NaN
+        autoBasics
+            .clearValue('@sumInput1')
+            .pause(5000)
+            .setValue('@sumInput2', '2')
+            .click('@sumBtn')
+            .pause(5000)
+            .expect.element('@sumRslt').text.equal('Sum: 5')
     }
 }
